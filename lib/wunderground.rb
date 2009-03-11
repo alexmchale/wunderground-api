@@ -15,11 +15,17 @@ class Wunderground
   def initialize(location)
     @location = location
     @params = { :query => location }.to_url
+
+    data = Net::HTTP.get(URI.parse "http://api.wunderground.com/auto/wui/geo/ForecastXML/index.xml?#{@params}")
+    @xml = XmlSimple.xml_in(data, { 'ForceArray' => false })
+  end
+
+  def today
+    @xml.andand['txt_forecast'].andand['forecastday'].sort {|a, b| a['period'].to_i <=> b['period'].to_i}
   end
 
   def forecast
-    data = Net::HTTP.get(URI.parse "http://api.wunderground.com/auto/wui/geo/ForecastXML/index.xml?#{@params}")
-    XmlSimple.xml_in(data, { 'ForceArray' => false }).andand['simpleforecast'].andand['forecastday']
+    @xml.andand['simpleforecast'].andand['forecastday']
   end
 
   def simple_forecast(days = 3)
