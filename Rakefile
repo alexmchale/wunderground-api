@@ -48,8 +48,8 @@ task :verify_committed do
   abort "This project has not been fully committed." unless `git status | grep "nothing to commit"` != ''
 end
 
-task :patch => [ :verify_committed, :test, "version:bump:patch", :build, :install, :release ]
-task :minor => [ :verify_committed, :test, "version:bump:minor", :build, :install, :release ]
-task :major => [ :verify_committed, :test, "version:bump:major", :build, :install, :release ]
+task :patch => [ :verify_committed, :test, "version:bump:patch", :release, :build, :install ]
+task :minor => [ :verify_committed, :test, "version:bump:minor", :release, :build, :install ]
+task :major => [ :verify_committed, :test, "version:bump:major", :release, :build, :install ]
 
 task :default => :test
