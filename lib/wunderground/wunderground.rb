@@ -1,23 +1,19 @@
-require 'rubygems'
 require 'xmlsimple'
+require 'andand'
 require 'net/http'
 require 'cgi'
-require 'andand'
-require 'pp'
-
-class Hash
-  def to_url
-    map {|key, value| "#{CGI.escape key.to_s}=#{CGI.escape value.to_s}"}.join "&"
-  end
-end
 
 class Wunderground
   def initialize(location)
     @location = location
-    @params = { :query => location }.to_url
+    params = to_params(:query => @location)
 
-    data = Net::HTTP.get(URI.parse "http://api.wunderground.com/auto/wui/geo/ForecastXML/index.xml?#{@params}")
+    data = Net::HTTP.get(URI.parse "http://api.wunderground.com/auto/wui/geo/ForecastXML/index.xml?#{params}")
     @xml = XmlSimple.xml_in(data, { 'ForceArray' => false })
+  end
+
+  def to_params(params)
+    params.map {|key, value| "#{CGI.escape key.to_s}=#{CGI.escape value.to_s}"}.join "&"
   end
 
   def today

@@ -1,29 +1,21 @@
-# -*- encoding: utf-8 -*-
-
 Gem::Specification.new do |s|
-  s.name = %q{wunderground-api}
-  s.version = "0.1.2"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Alex McHale"]
-  s.date = %q{2009-03-11}
-  s.email = %q{alexmchale@gmail.com}
-  s.extra_rdoc_files = ["README.markdown"]
-  s.files = ["VERSION.yml", "README.markdown", "lib/wunderground.rb"]
-  s.has_rdoc = true
-  s.homepage = %q{http://github.com/alexmchale/wunderground-api}
-  s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.1}
-  s.summary = %q{An API to Weather Underground.}
+  s.name        = %q{wunderground-api}
+  s.version     = "0.2.0"
+  s.platform    = Gem::Platform::RUBY
+  s.authors     = [ "Alex McHale" ]
+  s.email       = [ "alexmchale@gmail.com" ]
+  s.homepage    = "http://github.com/alexmchale/wunderground-api"
+  s.summary     = "An API to Weather Underground."
+  s.description = "Provides a simple interface to retrieve weather information from Weather Underground."
 
-  if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 2
+  s.required_rubygems_version = ">= 1.3.6"
+  s.rubyforge_project         = "wunderground-api"
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-    else
-    end
-  else
-  end
+  s.add_dependency "andand", ">= 1.3.1"
+  s.add_dependency "xml-simple", ">= 1.0.12"
+
+  s.files        = Dir.glob("lib/**/*") + %w( LICENSE README.markdown )
+  s.require_path = "lib"
+
 end
